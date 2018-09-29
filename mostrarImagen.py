@@ -1,25 +1,24 @@
 import csv
 import cv2
-import numpy
+import numpy as np
 
 if __name__ == "__main__":
-    with open("datosCSV.csv") as buscarUL:
-        ultimaLinea = buscarUL.readlines()[-1]
-        #print(ultimaLinea)
-        ultimaLinea = ultimaLinea.split(",")
-        tamX = int(ultimaLinea[0])
-        tamY = int(ultimaLinea[1])
-    with open("datosCSV.csv") as baseCSV:
-        lector = csv.reader(baseCSV, delimiter=',')
-        imagen = numpy.ones((tamY+1,tamX+1,3),numpy.uint8)*255
-        linea = 0
-        for row in lector:
-            if linea == 0:
-                linea += 1
+    with open("dataCSV.csv") as findLL:
+        lastLine = findLL.readlines()[-1]
+        lastLine = lastLine.split(",")
+        sizeX = int(lastLine[0])
+        sizeY = int(lastLine[1])
+    with open("dataCSV.csv") as baseCSV:
+        reader = csv.reader(baseCSV, delimiter=',')
+        image = np.ones((sizeY+1,sizeX+1,3),np.uint8)*255
+        line = 0
+        for row in reader:
+            if line == 0:
+                line += 1
             else:
-                imagen.itemset((int(row[1]),int(row[0]),0),int(row[4]))
-                imagen.itemset((int(row[1]),int(row[0]),1),int(row[3]))
-                imagen.itemset((int(row[1]),int(row[0]),2),int(row[2]))
-                linea += 1
-        cv2.imshow('imagenCargada', imagen)
+                image.itemset((int(row[1]),int(row[0]),0),int(row[4]))
+                image.itemset((int(row[1]),int(row[0]),1),int(row[3]))
+                image.itemset((int(row[1]),int(row[0]),2),int(row[2]))
+                line += 1
+        cv2.imshow('loadedImage', image)
         cv2.waitKey()
