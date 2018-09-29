@@ -9,4 +9,5 @@ if __name__ == "__main__":
         for x in range(0, imagen.shape[1]):
             linea = str(x)+","+str(y)+","+str(imagen[y,x][2])+","+str(imagen[y,x][1])+","+str(imagen[y,x][0])+"\n"
             fichero.write(linea)
+    fichero.close()
                 
